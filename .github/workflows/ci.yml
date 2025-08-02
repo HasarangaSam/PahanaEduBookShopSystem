@@ -21,8 +21,13 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: 🧩 Download Jakarta Servlet API
+      run: |
+        mkdir -p lib
+        curl -L -o lib/jakarta.servlet-api.jar https://repo1.maven.org/maven2/jakarta/servlet/jakarta.servlet-api/5.0.0/jakarta.servlet-api-5.0.0.jar
+
     - name: 🧪 Compile Java code
       run: |
         find src -name "*.java" > sources.txt
         mkdir -p out
-        javac -d out @sources.txt
+        javac -cp lib/jakarta.servlet-api.jar -d out @sources.txt
